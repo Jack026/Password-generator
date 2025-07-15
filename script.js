@@ -20,7 +20,99 @@ document.addEventListener('mousemove', (e) => {
   superBlob.style.transform =
     `translate(${(e.clientX - window.innerWidth/2) * 0.08}px, ${(e.clientY - window.innerHeight/2) * 0.08}px)`;
 });
-  // --- Your other script.js code below (e.g., password generator, UI handlers, etc.) ---
+
+// --- Theme Toggle Functionality ---
+class ThemeManager {
+  constructor() {
+    this.themeToggle = document.getElementById('themeToggle');
+    this.themeToggleThumb = document.getElementById('themeToggleThumb');
+    this.currentTheme = this.getStoredTheme() || 'dark';
+    
+    this.init();
+  }
+
+  init() {
+    // Set initial theme
+    this.applyTheme(this.currentTheme);
+    
+    // Add event listeners
+    this.themeToggle.addEventListener('click', () => this.toggleTheme());
+    this.themeToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleTheme();
+      }
+    });
+  }
+
+  getStoredTheme() {
+    try {
+      return localStorage.getItem('password-generator-theme');
+    } catch (error) {
+      console.warn('localStorage not available, using default theme');
+      return null;
+    }
+  }
+
+  storeTheme(theme) {
+    try {
+      localStorage.setItem('password-generator-theme', theme);
+    } catch (error) {
+      console.warn('Unable to store theme preference');
+    }
+  }
+
+  applyTheme(theme) {
+    const html = document.documentElement;
+    
+    if (theme === 'light') {
+      html.setAttribute('data-theme', 'light');
+      this.themeToggle.classList.remove('dark');
+      this.themeToggle.setAttribute('aria-checked', 'false');
+    } else {
+      html.removeAttribute('data-theme');
+      this.themeToggle.classList.add('dark');
+      this.themeToggle.setAttribute('aria-checked', 'true');
+    }
+    
+    this.currentTheme = theme;
+    this.storeTheme(theme);
+    
+    // Announce theme change for screen readers
+    this.announceThemeChange(theme);
+  }
+
+  toggleTheme() {
+    const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    this.applyTheme(newTheme);
+  }
+
+  announceThemeChange(theme) {
+    // Create a live region announcement for screen readers
+    const announcement = document.createElement('div');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.setAttribute('aria-atomic', 'true');
+    announcement.className = 'sr-only';
+    announcement.style.position = 'absolute';
+    announcement.style.left = '-10000px';
+    announcement.style.width = '1px';
+    announcement.style.height = '1px';
+    announcement.style.overflow = 'hidden';
+    announcement.textContent = `Switched to ${theme} mode`;
+    
+    document.body.appendChild(announcement);
+    
+    // Remove the announcement after a short delay
+    setTimeout(() => {
+      document.body.removeChild(announcement);
+    }, 1000);
+  }
+}
+
+// Initialize theme manager
+let themeManager;
+
+// --- Your other script.js code below (e.g., password generator, UI handlers, etc.) ---
   
   // --- Password Generator JS ---
   
@@ -205,6 +297,10 @@ document.addEventListener('mousemove', (e) => {
   
   // Auto-generate on page load
   window.addEventListener('DOMContentLoaded', () => {
+    // Initialize theme manager
+    themeManager = new ThemeManager();
+    
+    // Initialize password generator
     updateLength();
     generatePassword();
   });
