@@ -5,7 +5,11 @@
     --success: #4caf50;
     --warning: #ff9800;
     --danger: #f44336;
-    --bg-gradient: linear-gradient(135deg, #6a6aff 0%, #b16cff 50%, #ffb6b9 100%);
+    --bg-gradient: linear-gradient(135deg,
+    #03001e,
+    #7303c0,
+    #ec38bc,
+    #fdeff9);
     --card-bg: rgba(255,255,255,0.20);
     --card-border: linear-gradient(90deg, #6a6aff, #b16cff);
     --card-shadow: 0 8px 32px 0 rgba(106,106,255,0.16), 0 2px 8px rgba(177,108,255,0.09);
@@ -64,7 +68,7 @@
     border-radius: var(--radius);
     box-shadow: var(--card-shadow), 0 0 42px 2px #b16cff33;
     backdrop-filter: blur(var(--blur)) saturate(1.13);
-    border: 0.01px solid;
+    border: 0.0px solid;
     border-image: var(--card-border) 1;
     padding: 2.8rem 3.2rem;
     max-width: 410px;
@@ -86,7 +90,17 @@
     font-size: 1.8rem;
     font-weight: 800;
     letter-spacing: 2px;
-    color: var(--primary);
+    background: linear-gradient(90deg, 
+    #fdeff9
+    ,
+    #ec38bc
+    ,
+    #fdeff9
+    ,
+    #fdeff9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-shadow: 0 2px 8px rgba(106,106,255,0.13);
     margin: 0 auto;
     text-align: center;
@@ -338,7 +352,7 @@
     justify-content: center;
     margin-top: 1.3em;
   }
-  #blob-bg {
+  .blob-bg {
     position: fixed;
     z-index: 0;
     top: 0; left: 0; width: 100vw; height: 100vh;
@@ -384,7 +398,9 @@
     transition: transform 0.5s cubic-bezier(.45,.8,.55,1);
   }
   .generate-btn:hover {
-    background: linear-gradient(90deg, var(--accent), var(--primary));
+    background: linear-gradient(90deg, 
+    #5de6ad,
+    #abf5af);
     color: var(--primary);
     transform: scale(1.08) rotate(-1deg);
     box-shadow: 0 8px 28px rgba(106,106,255,0.22), 0 0 18px #fff35c88;
