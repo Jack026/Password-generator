@@ -15,7 +15,7 @@
     position: relative;
     display: inline-block;
     width: 120px;
-    height: 32px;
+    height: 16px;
     cursor: pointer;
     font-family: 'Segoe UI', sans-serif;
     user-select: none;
@@ -61,7 +61,7 @@ input[type="checkbox"]:checked ~ .theme-toggle .toggle-bg.night {
     z-index: 2;
 }
 input[type="checkbox"]:checked ~ .theme-toggle .toggle-slider {
-    transform: translateX(86px);
+    transform: translateX(100px);
 }
 .toggle-icon {
     font-size: 1em;
