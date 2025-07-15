@@ -3,34 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Password Generator</title>
+  <title>Password </a>Generator</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Animated SVG Blobs for accent -->
-  <svg class="blob blob1" viewBox="0 0 300 300"><path fill="#b16cff" opacity="0.28" d="M53.5,-67.7C70.6,-57.3,84.7,-40.1,89.2,-20.5C93.8,-0.9,88.7,19.1,77.1,35.1C65.5,51.2,47.4,63.2,28.1,71.6C8.7,80.1,-11.8,85,-28.2,77.3C-44.5,69.6,-56.7,49.2,-65.9,27.3C-75,5.3,-81.1,-18.1,-73.3,-36.2C-65.5,-54.3,-43.7,-67,-21.3,-70.6C1.1,-74.2,22.1,-68.1,53.5,-67.7Z" transform="translate(150 150)"/></svg>
+  <svg class="blob blob1" viewBox="0 0 300 300"><path fill="#b16cff" opacity="0.28" d="M5</a>3.5,-67.7C70.6,-57.3,84.7,-40.1,89.2,-20.5C93.8,-0.9,88.7,19.1,77.1,35.1C65.5,51.2,47.4,63.2,28.1,71.6C8.7,80.1,-11.8,85,-28.2,77.3C-44.5,69.6,-56.7,49.2,-65.9,27.3C-75,5.3,-81.1,-18.1,-73.3,-36.2C-65.5,-54.3,-43.7,-67,-21.3,-70.6C1.1,-74.2,22.1,-68.1,53.5,-67.7Z" transform="translate(150 150)"/></svg>
   <svg class="blob blob2" viewBox="0 0 300 300"><path fill="#6a6aff" opacity="0.22" d="M44.8,-62.9C61.2,-54.2,75.6,-38.7,81.4,-20.6C87.2,-2.5,84.3,17.3,75.7,34.4C67.1,51.5,52.8,66,36.1,75.6C19.4,85.1,0.3,89.6,-18.5,90.4C-37.3,91.1,-55.8,88.1,-67.7,75.6C-79.6,63.2,-85.1,41.3,-83.5,21.8C-81.9,2.4,-73.2,-15.7,-62.7,-32.4C-52.3,-49.1,-40,-64.4,-24.2,-71.5C-8.5,-78.6,10.7,-77.6,28.2,-72.4C45.8,-67.3,61.2,-58.2,44.8,-62.9Z" transform="translate(150 150)"/></svg>
   <!-- Place this at the top of your <body> -->
     
-<div class="blobs-bg">
-    <svg class="blob-svg" width="100vw" height="100vh">
-        <filter id="gooey">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="38" result="blur"/>
-            <feColorMatrix in="blur" mode="matrix"
-              values="1 0 0 0 0  
-                      0 1 0 0 0  
-                      0 0 1 0 0  
-                      0 0 0 38 -18" result="goo"/>
-            <feBlend in="SourceGraphic" in2="goo"/>
+    <div class="super-blob-area">
+      <svg id="superBlob" width="340" height="340" viewBox="0 0 340 340">
+        <defs>
+          <radialGradient id="blobGradient" cx="50%" cy="50%" r="80%">
+            <stop offset="0%" stop-color="#b16cff"/>
+            <stop offset="50%" stop-color="#6a6aff"/>
+            <stop offset="100%" stop-color="#fff35c"/>
+          </radialGradient>
+          <filter id="blobGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="24" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
           </filter>
-      <ellipse id="blob1" cx="50%" cy="50%" r="140" fill="#6a6aff" filter="url(#gooey)"/>
-      <ellipse id="blob2" cx="55%" cy="54%" r="120" fill="#b16cff" filter="url(#gooey)"/>
-      <ellipse id="blob3" cx="48%" cy="53%" r="90" fill="#ffd36e" filter="url(#gooey)"/>
-      <ellipse id="blob4" cx="53%" cy="57%" r="70" fill="#ff6a6a" filter="url(#gooey)"/>
-    </svg>
-  </div>
+        </defs>
+        <path id="blobShape" fill="url(#blobGradient)" filter="url(#blobGlow)"/>
+      </svg>
+      <div id="blobParticles"></div>
+    </div>
 
   <main class="container">
     <div class="card glass">
@@ -92,9 +95,57 @@
             Generate
           </button>
         </div>
+        <footer class="footer">
+          <p>Powered by <strong>SJS Creation</strong></p>
+          <div class="social-links">
+            <a href="https://sjs-protfolio.netlify.app/" target="_blank" aria-label="Website">
+              <!-- Website / Globe Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="tabler-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#6a6aff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3C16.4183 3 20 6.58172 20 11C20 15.4183 16.4183 19 12 19C7.58172 19 4 15.4183 4 11C4 6.58172 7.58172 3 12 3Z" />
+                <path d="M2 12H22" />
+                <path d="M12 2V22" />
+              </svg>
+            </a>
+            
+            <a href="https://www.linkedin.com/in/sourav-jyoti-sahariah" target="_blank" aria-label="LinkedIn">
+              <!-- LinkedIn Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="tabler-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#6a6aff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0 -4 0v7h-4v-14h4v2a4 4 0 0 1 2.87 -1.23"/>
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <a href="https://github.com/jack026" target="_blank" aria-label="GitHub">
+              <!-- GitHub Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="tabler-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#6a6aff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.5a3.37 3.37 0 0 0 -.94 -2.61c3.14 -.35 6.44 -1.54 6.44 -7A5.44 5.44 0 0 0 20 4.77a5.07 5.07 0 0 0 -.09 -3.77s-1.18 -.35 -3.87 1.35A13.38 13.38 0 0 0 12 2a13.38 13.38 0 0 0 -4.04 .6c-2.69 -1.7 -3.87 -1.35 -3.87 -1.35a5.07 5.07 0 0 0 -.09 3.77A5.44 5.44 0 0 0 2 9.5c0 5.46 3.3 6.65 6.44 7A3.37 3.37 0 0 0 7.5 21.5V25"/>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/xourav.js" target="_blank" aria-label="Instagram">
+              <!-- Instagram Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="tabler-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#6a6aff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="4"/>
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M16.5 7.5h.01"/>
+              </svg>
+            </a>
+            <a href="mailto:souravjyotisahariah@gmail.com" target="_blank" aria-label="Email">
+              <!-- Email Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="tabler-icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#6a6aff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <polyline points="3,7 12,13 21,7" />
+              </svg>
+            </a>
+            
+            
+          </div>
+        </footer>
+        
       </form>
     </div>
+    
   </main>
   <script src="script.js"></script>
+  
 </body>
 </html>

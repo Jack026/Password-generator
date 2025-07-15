@@ -8,108 +8,91 @@
 // --- Gooey Liquid Blob Background (Toukoum.fr Style + Spreading/Splashing Effect) ---
 
 // Get SVG blobs (should be <ellipse> for true liquid stretching)
-const blobs = [
-    document.getElementById("blob1"),
-    document.getElementById("blob2"),
-    document.getElementById("blob3"),
-    document.getElementById("blob4"),
-  ];
-  
-  // Color palettes for cycling
-  const colors = [
-    ["#6a6aff", "#b16cff", "#ffd36e", "#ff6a6a"],
-    ["#ffb6b9", "#6a6aff", "#fff35c", "#4caf50"],
-    ["#00e1ff", "#ff00bd", "#ff9800", "#b16cff"],
-  ];
-  
-  // Initial base positions (normalized: as a percentage of window width/height)
-  let basePositions = [
-    { x: 0.50, y: 0.50, r: 140 },
-    { x: 0.55, y: 0.54, r: 120 },
-    { x: 0.48, y: 0.53, r: 90 },
-    { x: 0.53, y: 0.57, r: 70 },
-  ];
-  
-  // Mouse and trailing positions
-  let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-  let trailing = [
-    { x: mouse.x, y: mouse.y },
-    { x: mouse.x, y: mouse.y },
-    { x: mouse.x, y: mouse.y },
-    { x: mouse.x, y: mouse.y },
-  ];
-  
-  // For liquid spreading: track mouse velocity
-  let lastMouse = { x: mouse.x, y: mouse.y };
-  let velocity = 0;
-  
-  document.addEventListener("mousemove", (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    // Calculate velocity for spreading effect
-    const dx = mouse.x - lastMouse.x;
-    const dy = mouse.y - lastMouse.y;
-    velocity = Math.min(Math.sqrt(dx * dx + dy * dy) / 12, 2.5); // Clamp velocity
-    lastMouse.x = mouse.x;
-    lastMouse.y = mouse.y;
-  });
-  
-  window.addEventListener("resize", () => {
-    mouse.x = window.innerWidth / 2;
-    mouse.y = window.innerHeight / 2;
-  });
-  
-  let colorIndex = 0;
-  let lastColorChange = 0;
-  
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
+// --- Super Blob Morphing + Particle Animations ---
+
+const blobPath = document.getElementById('blobShape');
+const superBlob = document.getElementById('superBlob');
+const blobParticles = document.getElementById('blobParticles');
+
+// Blob morph points
+function getBlobPath(t, hover) {
+  // Morphs between two shapes depending on hover
+  const r1 = hover ? 150 : 130;
+  const r2 = hover ? 100 : 120;
+  const r3 = hover ? 128 : 110;
+  return `
+    M170,${170 - r1}
+    C${170 + r2},${170 - r2} ${170 + r3},${170 + r2} ${170},${170 + r1}
+    C${170 - r2},${170 + r2} ${170 - r3},${170 - r2} ${170},${170 - r1}
+    Z
+  `;
+}
+
+let blobHover = false;
+let tStart = performance.now();
+
+superBlob.addEventListener('mouseenter', () => { blobHover = true; });
+superBlob.addEventListener('mouseleave', () => { blobHover = false; });
+
+function animateSuperBlob(ts) {
+  const t = (ts - tStart) / 1000;
+  // Slight morphing animation
+  const morph = Math.sin(t * 2.8) * (blobHover ? 16 : 8);
+
+  // Morphing path
+  const path = `
+    M170,${170-130-morph}
+    C${170+120+morph},${170-120-morph} ${170+110-morph},${170+120+morph} ${170},${170+130+morph}
+    C${170-120-morph},${170+120+morph} ${170-110+morph},${170-120-morph} ${170},${170-130-morph}
+    Z
+  `;
+  blobPath.setAttribute('d', path);
+
+  requestAnimationFrame(animateSuperBlob);
+}
+animateSuperBlob();
+
+// --- Floating Particles/Bubbles ---
+function createParticle() {
+  const p = document.createElement('div');
+  const size = 8 + Math.random() * 20;
+  p.style.position = 'absolute';
+  p.style.width = `${size}px`;
+  p.style.height = `${size}px`;
+  p.style.borderRadius = '50%';
+  const colrs = ['#fffbe7', '#b16cff', '#6a6aff', '#ec38bc', '#fff35c'];
+  p.style.background = colrs[Math.floor(Math.random() * colrs.length)];
+  p.style.opacity = 0.09 + Math.random() * 0.27;
+  p.style.left = `${120 + Math.random() * 95}px`;
+  p.style.top = `${120 + Math.random() * 95}px`;
+  p.style.pointerEvents = 'none';
+  p.style.filter = 'blur(2.5px)';
+  blobParticles.appendChild(p);
+
+  // Animate up & fade out
+  let y = parseFloat(p.style.top);
+  let fade = 1;
+  function float() {
+    y -= 0.13 + Math.random() * 0.15;
+    fade -= 0.005 + Math.random() * 0.004;
+    p.style.top = `${y}px`;
+    p.style.opacity = fade;
+    if (fade > 0) requestAnimationFrame(float);
+    else p.remove();
   }
-  
-  function animateBlobs(ts = 0) {
-    // Color cycling every 4 seconds
-    if (ts - lastColorChange > 4000) {
-      colorIndex = (colorIndex + 1) % colors.length;
-      blobs.forEach((b, i) => b.setAttribute("fill", colors[colorIndex][i]));
-      lastColorChange = ts;
-    }
-    // Animate trailing positions for blobs
-    trailing[0].x = lerp(trailing[0].x, mouse.x, 0.13);
-    trailing[0].y = lerp(trailing[0].y, mouse.y, 0.13);
-    for (let i = 1; i < blobs.length; i++) {
-      trailing[i].x = lerp(
-        trailing[i].x,
-        trailing[i - 1].x + (basePositions[i].x - 0.5) * window.innerWidth,
-        0.12 + i * 0.03
-      );
-      trailing[i].y = lerp(
-        trailing[i].y,
-        trailing[i - 1].y + (basePositions[i].y - 0.5) * window.innerHeight,
-        0.12 + i * 0.03
-      );
-    }
-    // Animate blob morphing, stretching, and position
-    blobs.forEach((blob, i) => {
-      // Blob base radius pulses over time
-      let rBase = basePositions[i].r * (1 + 0.16 * Math.sin(ts / (410 + i * 120)));
-      // Stretch/splash horizontally according to velocity (liquid effect)
-      let rX = rBase * (1 + velocity * (0.23 + 0.09 * i));
-      let rY = rBase * (1 - velocity * 0.15);
-      blob.setAttribute("cx", trailing[i].x);
-      blob.setAttribute("cy", trailing[i].y);
-      if (blob.tagName === "ellipse") {
-        blob.setAttribute("rx", rX);
-        blob.setAttribute("ry", rY);
-      } else {
-        // If using <circle>, fallback to circular radius (less liquid)
-        blob.setAttribute("r", rX);
-      }
-    });
-    requestAnimationFrame(animateBlobs);
-  }
-  animateBlobs();
-  
-  
+  float();
+}
+
+// Auto-spawn particles
+setInterval(() => {
+  if (document.body.contains(blobParticles)) createParticle();
+}, 200);
+
+// Optionally: Make blob follow mouse for extra interactivity
+document.addEventListener('mousemove', (e) => {
+  superBlob.style.transform =
+    `translate(${(e.clientX - window.innerWidth/2) * 0.08}px, ${(e.clientY - window.innerHeight/2) * 0.08}px)`;
+});
   // --- Your other script.js code below (e.g., password generator, UI handlers, etc.) ---
   
   // --- Password Generator JS ---
@@ -291,6 +274,7 @@ const blobs = [
   generateBtn.addEventListener('click', generatePassword);
   
   copyBtn.addEventListener('click', copyToClipboard);
+  
   
   // Auto-generate on page load
   window.addEventListener('DOMContentLoaded', () => {
