@@ -7,14 +7,29 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="toggle.css">
 </head>
 <body>
   <!-- Animated SVG Blobs for accent -->
   <svg class="blob blob1" viewBox="0 0 300 300"><path fill="#b16cff" opacity="0.28" d="M5</a>3.5,-67.7C70.6,-57.3,84.7,-40.1,89.2,-20.5C93.8,-0.9,88.7,19.1,77.1,35.1C65.5,51.2,47.4,63.2,28.1,71.6C8.7,80.1,-11.8,85,-28.2,77.3C-44.5,69.6,-56.7,49.2,-65.9,27.3C-75,5.3,-81.1,-18.1,-73.3,-36.2C-65.5,-54.3,-43.7,-67,-21.3,-70.6C1.1,-74.2,22.1,-68.1,53.5,-67.7Z" transform="translate(150 150)"/></svg>
   <svg class="blob blob2" viewBox="0 0 300 300"><path fill="#6a6aff" opacity="0.22" d="M44.8,-62.9C61.2,-54.2,75.6,-38.7,81.4,-20.6C87.2,-2.5,84.3,17.3,75.7,34.4C67.1,51.5,52.8,66,36.1,75.6C19.4,85.1,0.3,89.6,-18.5,90.4C-37.3,91.1,-55.8,88.1,-67.7,75.6C-79.6,63.2,-85.1,41.3,-83.5,21.8C-81.9,2.4,-73.2,-15.7,-62.7,-32.4C-52.3,-49.1,-40,-64.4,-24.2,-71.5C-8.5,-78.6,10.7,-77.6,28.2,-72.4C45.8,-67.3,61.2,-58.2,44.8,-62.9Z" transform="translate(150 150)"/></svg>
   <!-- Place this at the top of your <body> -->
+  <script src="toggle.js"></script>
     
-    
+    <!-- Light/Dark Mode Toggle Switch -->
+    <div class="theme-toggle-wrapper">
+      <input type="checkbox" id="theme-toggle" aria-label="Toggle light and dark mode">
+      <label for="theme-toggle" class="theme-toggle">
+        <span class="toggle-bg day"></span>
+        <span class="toggle-bg night"></span>
+        <span class="toggle-slider">
+          <span class="toggle-icon sun">&#9728;</span>
+          <span class="toggle-icon moon">&#9790;</span>
+        </span>
+        <span class="toggle-label day">DAY MODE</span>
+        <span class="toggle-label night">NIGHT MODE</span>
+      </label>
+    </div>
 
   <main class="container">
     <div class="card glass">
