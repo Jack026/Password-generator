@@ -38,7 +38,7 @@
     opacity: 1;
 }
 .toggle-bg.night {
-    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+    background: linear-gradient(90deg, #310231 0%, #b056c2 100%);
     opacity: 0;
 }
 input[type="checkbox"]:checked ~ .theme-toggle .toggle-bg.day {
