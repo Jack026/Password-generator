@@ -14,26 +14,7 @@
   <svg class="blob blob2" viewBox="0 0 300 300"><path fill="#6a6aff" opacity="0.22" d="M44.8,-62.9C61.2,-54.2,75.6,-38.7,81.4,-20.6C87.2,-2.5,84.3,17.3,75.7,34.4C67.1,51.5,52.8,66,36.1,75.6C19.4,85.1,0.3,89.6,-18.5,90.4C-37.3,91.1,-55.8,88.1,-67.7,75.6C-79.6,63.2,-85.1,41.3,-83.5,21.8C-81.9,2.4,-73.2,-15.7,-62.7,-32.4C-52.3,-49.1,-40,-64.4,-24.2,-71.5C-8.5,-78.6,10.7,-77.6,28.2,-72.4C45.8,-67.3,61.2,-58.2,44.8,-62.9Z" transform="translate(150 150)"/></svg>
   <!-- Place this at the top of your <body> -->
     
-    <div class="super-blob-area">
-      <svg id="superBlob" width="340" height="340" viewBox="0 0 340 340">
-        <defs>
-          <radialGradient id="blobGradient" cx="50%" cy="50%" r="80%">
-            <stop offset="0%" stop-color="#b16cff"/>
-            <stop offset="50%" stop-color="#6a6aff"/>
-            <stop offset="100%" stop-color="#fff35c"/>
-          </radialGradient>
-          <filter id="blobGlow" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="24" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-        <path id="blobShape" fill="url(#blobGradient)" filter="url(#blobGlow)"/>
-      </svg>
-      <div id="blobParticles"></div>
-    </div>
+    
 
   <main class="container">
     <div class="card glass">

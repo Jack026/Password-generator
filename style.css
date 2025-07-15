@@ -352,45 +352,7 @@
     justify-content: center;
     margin-top: 1.3em;
   }
-  .super-blob-area {
-    position: fixed;
-    top: 8vh;
-    right: 7vw;
-    z-index: 10;
-    pointer-events: none;
-    width: 340px;
-    height: 340px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   
-  #superBlob {
-    width: 340px;
-    height: 340px;
-    backdrop-filter: blur(18px) saturate(1.4);
-    border-radius: 50%;
-    box-shadow: 0 0 70px 20px #b16cff88, 0 0 0 10px #fff35c44;
-    transition: box-shadow 0.66s cubic-bezier(.46,1.24,.48,1.01);
-  }
-  
-  #superBlob:hover {
-    box-shadow: 0 0 110px 40px #ec38bc99, 0 0 0 24px #fff35c99;
-  }
-  
-  #blobParticles {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 11;
-  }
-  
-  .super-blob-area {
-    /* Responsive for mobile */
-    min-width: 240px;
-    min-height: 240px;
-  }
   @media (max-width: 900px) {
     .super-blob-area {
       top: auto;
